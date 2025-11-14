@@ -1,58 +1,51 @@
 import jsonServer from 'json-server';
 import { readFileSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Debug paths
-const dbPath = join(__dirname, 'db.json');
-console.log('__dirname:', __dirname);
-console.log('Process cwd:', process.cwd());
-console.log('Database path:', dbPath);
-console.log('Database exists:', existsSync(dbPath));
-
-
-// Create server instance with proper typing
 const server = jsonServer.create();
-const router = jsonServer.router(dbPath);
 
+// Sửa đường dẫn - quay về thư mục cha (thoát khỏi dist)
+const dbPath = join(process.cwd(), 'db.json');
+console.log('📁 Current working directory:', process.cwd());
+console.log('📁 Database path:', dbPath);
+console.log('📁 Database exists:', existsSync(dbPath));
+
+const router = jsonServer.router(dbPath);
 const middlewares = jsonServer.defaults();
 
 // Use default middlewares
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-
 server.get('/api/v1/documents', (req, res) => {
-const db = router.db;
-
-    // Log toàn bộ database state
+  try {
+    const db = router.db;
+    
+    // Log chi tiết
     const dbState = db.getState();
-    console.log('📊 Full DB State:', JSON.stringify(dbState, null, 2));
+    console.log('📊 Full DB State:', dbState);
     
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const documents = (db.get('documents') as any).value();
-    console.log('📄 Documents found:', documents);
-    console.log('📄 Number of documents:', documents.length);
+    console.log('📄 Documents:', documents);
     
-    if (!documents || documents.length === 0) {
-      console.log('⚠️ No documents found in database');
-      return res.json([]);
-    }
+    res.json(documents);
+  } catch (error) {
+    console.error('❌ Error:', error);
     
-res.json(documents);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    res.status(500).json({ error: (error as any).message });
+  }
 });
 
-
-
-// Custom route for serving PDF files
+// Sửa đường dẫn pdfs cũng tương tự
 server.get('/api/v1/pdfs/:filename', (req, res) => {
   const filename: string = req.params.filename;
-  const filePath: string = join(__dirname, 'pdfs', filename);
+  const filePath: string = join(process.cwd(), 'pdfs', filename); // Quay về thư mục gốc
   
-  console.log(`📤 Serving PDF file: ${filename}`);
+  console.log(`📤 Serving PDF: ${filename}`);
+  console.log(`📁 PDF path: ${filePath}`);
+  console.log(`📁 PDF exists: ${existsSync(filePath)}`);
   
   try {
     if (!existsSync(filePath)) {
@@ -62,7 +55,6 @@ server.get('/api/v1/pdfs/:filename', (req, res) => {
 
     const fileBuffer: Buffer = readFileSync(filePath);
     
-    // Set PDF response headers
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', fileBuffer.length.toString());
     res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
@@ -75,12 +67,11 @@ server.get('/api/v1/pdfs/:filename', (req, res) => {
   }
 });
 
-// Custom route for PDF download
+// Tương tự với route download
 server.get('/api/v1/documents/:id/download', (req, res) => {
   const documentId: string = req.params.id;
   const db = router.db;
   
-  // Find document in database with proper typing
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const document = (db.get('documents') as any).find({ id: parseInt(documentId) }).value();
   
@@ -89,7 +80,10 @@ server.get('/api/v1/documents/:id/download', (req, res) => {
     return;
   }
   
-  const filePath: string = join(__dirname, 'pdfs', document.filename);
+  const filePath: string = join(process.cwd(), 'pdfs', document.filename); // Quay về thư mục gốc
+  
+  console.log(`📥 Download PDF: ${document.filename}`);
+  console.log(`📁 PDF path: ${filePath}`);
   
   try {
     if (!existsSync(filePath)) {
@@ -117,4 +111,7 @@ server.use(router);
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`🎯 JSON Server is running on port:${PORT}`);
+  console.log(`📁 Current directory: ${process.cwd()}`);
+  console.log(`📁 Database path: ${dbPath}`);
+  console.log(`📁 Database exists: ${existsSync(dbPath)}`);
 });
