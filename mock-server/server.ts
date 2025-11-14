@@ -16,7 +16,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 // Custom route for serving PDF files
-server.get('/pdfs/:filename', (req, res) => {
+server.get('/api/v1/pdfs/:filename', (req, res) => {
   const filename: string = req.params.filename;
   const filePath: string = join(__dirname, 'pdfs', filename);
   
@@ -44,7 +44,7 @@ server.get('/pdfs/:filename', (req, res) => {
 });
 
 // Custom route for PDF download
-server.get('/api/documents/:id/download', (req, res) => {
+server.get('/api/v1/documents/:id/download', (req, res) => {
   const documentId: string = req.params.id;
   const db = router.db;
   
