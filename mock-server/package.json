@@ -1,0 +1,19 @@
+{
+  "name": "pdf-mock-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "server": "tsx server.ts",
+    "server:watch": "tsx watch server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "@types/json-server": "^0.14.8",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

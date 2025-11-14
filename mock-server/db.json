@@ -1,0 +1,72 @@
+{
+  "documents": [
+    {
+      "id": 1,
+      "fileName": "Hướng dẫn sử dụng React PDF",
+      "originalName": "react-pdf-guide.pdf",
+      "filename": "sample1.pdf",
+      "fileSize": 142786 ,
+      "fileType": "application/pdf",
+      "uploadedAt": "2024-01-15T10:30:00Z",
+      "description": "Tài liệu hướng dẫn sử dụng thư viện React PDF chi tiết",
+      "category": "Programming",
+      "author": "React Team",
+      "pages": 4,
+      "downloadCount": 42
+    },
+    {
+      "id": 2,
+      "fileName": "JavaScript ES6 Features",
+      "originalName": "javascript-es6.pdf",
+      "filename": "sample2.pdf",
+      "fileSize": 1042157,
+      "fileType": "application/pdf",
+      "uploadedAt": "2024-01-10T14:20:00Z",
+      "description": "Tổng hợp các tính năng mới trong ES6",
+      "category": "Programming",
+      "author": "MDN Web Docs",
+      "pages": 30,
+      "downloadCount": 89
+    },
+    {
+      "id": 3,
+      "fileName": "TypeScript Handbook",
+      "originalName": "typescript-handbook.pdf",
+      "filename": "sample3.pdf",
+      "fileSize": 994589,
+      "fileType": "application/pdf",
+      "uploadedAt": "2024-01-05T09:15:00Z",
+      "description": "Sổ tay hướng dẫn TypeScript toàn tập",
+      "category": "Programming",
+      "author": "Microsoft",
+      "pages": 408,
+      "downloadCount": 156
+    },
+    {
+      "id": 4,
+      "fileName": "React Best Practices",
+      "originalName": "react-best-practices.pdf",
+      "filename": "sample4.pdf",
+      "fileSize": 15368312,
+      "fileType": "application/pdf",
+      "uploadedAt": "2024-01-20T16:45:00Z",
+      "description": "Các best practices khi phát triển ứng dụng React",
+      "category": "Programming",
+      "author": "React Community",
+      "pages": 50,
+      "downloadCount": 67
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Programming",
+      "documentCount": 4
+    },
+    {
+      "id": 2,
+      "name": "Design",
+      "documentCount": 0
+    }
+  ]
+}
