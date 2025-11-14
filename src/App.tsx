@@ -5,6 +5,7 @@ import Book from "./pages/Book";
 import BookV2 from "./pages/Book_v2";
 import BookV3 from "./pages/Book_v3";
 import BookV4 from "./pages/Book_v4";
+import BookV5 from "./pages/Book_v5";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Link className="text-blue-500 hover:underline" to="/book_v2">Sách V2</Link>
         <Link className="text-blue-500 hover:underline" to="/book_v3">Sách V3</Link>
         <Link className="text-blue-500 hover:underline" to="/book_v4">Sách V4</Link>
+        <Link className="text-blue-500 hover:underline" to="/book_v5">Sách V5</Link>
 
       </nav>
 
@@ -25,6 +27,7 @@ function App() {
           <Route path="/book_v2" element={<BookV2 />} />
           <Route path="/book_v3" element={<BookV3 />} />
           <Route path="/book_v4" element={<BookV4 />} />
+          <Route path="/book_v5" element={<BookV5 />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

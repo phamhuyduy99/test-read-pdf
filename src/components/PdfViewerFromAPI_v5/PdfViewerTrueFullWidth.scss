@@ -3,7 +3,7 @@
 // 🎯 RESET & BASE STYLES
 // =============================================
 .pdf-viewer-true-full-width {
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
@@ -153,7 +153,7 @@
   flex: 1;
   overflow: hidden;
   width: 100%;
-  height: calc(100vh - 64px);
+  // height: calc(100vh - 64px);
   position: relative;
 }
 
@@ -828,5 +828,79 @@
     width: auto !important;
     height: auto !important;
     display: block !important;
+  }
+}
+
+
+
+// Loading animation for spinner
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Icon sizes and colors
+.icon {
+  &.menu,
+  &.moon,
+  &.sun,
+  &.search,
+  &.refresh {
+    color: inherit;
+  }
+  
+  &.loading {
+    color: #3498db;
+  }
+}
+
+// Control button icons
+.control-btn {
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+      color: currentColor;
+    }
+  }
+  
+  &:disabled .btn-icon svg {
+    opacity: 0.5;
+  }
+}
+
+// Document icons
+.document-item {
+  .file-type svg {
+    color: #e74c3c;
+  }
+  
+  .meta-item svg,
+  .document-footer svg {
+    margin-right: 4px;
+    opacity: 0.7;
+  }
+}
+
+// Theme support
+.theme-dark {
+  .icon svg {
+    color: #ecf0f1;
+  }
+}
+
+.theme-light {
+  .icon svg {
+    color: #2c3e50;
   }
 }
