@@ -49,7 +49,7 @@ server.get('/api/documents/:id/download', (req, res) => {
   const db = router.db;
   
   // Find document in database with proper typing
-  const document = db.get('documents').find({ id: parseInt(documentId) }).value();
+  const document = (db.get('documents') as any).find({ id: parseInt(documentId) }).value();
   
   if (!document) {
     res.status(404).json({ error: 'Document not found' });
