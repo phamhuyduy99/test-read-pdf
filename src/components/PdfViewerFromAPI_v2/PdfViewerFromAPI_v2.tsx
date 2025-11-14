@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import './PdfViewerProfessional.scss'; // Import SCSS cho styling nâng cao
+import { API_BASE_URL } from '../../constants';
 
 // =============================================
 // 🎯 TYPES & INTERFACES
@@ -78,7 +79,6 @@ const PdfViewerProfessional: React.FC<ProfessionalPdfViewerProps> = ({
     // Cấu hình PDF worker
     pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-    const API_BASE_URL = 'http://localhost:3001';
 
     const fetchDocuments = useCallback(async (): Promise<void> => {
         updateState({ listLoading: true, error: null });
@@ -299,6 +299,7 @@ const PdfViewerProfessional: React.FC<ProfessionalPdfViewerProps> = ({
                 onLoadSuccess={onDocumentLoadSuccess}
                 onLoadError={(error: Error) => {
                     updateState({ error: 'Failed to load PDF content' });
+                    console.log(error);
                 }}
                 loading={
                     <div className="pdf-loading">

@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import './PdfViewerTrueFullWidth.scss';
+import { API_BASE_URL } from '../../constants';
 
 // =============================================
 // 🎯 TYPES & INTERFACES
@@ -39,7 +40,6 @@ interface ControlButton {
 // 🔧 CONFIGURATION
 // =============================================
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-const API_BASE_URL = 'http://localhost:3001';
 
 // =============================================
 // 🎨 PDF VIEWER TRUE FULL WIDTH COMPONENT
@@ -271,13 +271,13 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }, []);
 
-    const formatDate = useCallback((dateString: string): string => {
-        return new Date(dateString).toLocaleDateString('vi-VN', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    }, []);
+    // const formatDate = useCallback((dateString: string): string => {
+    //     return new Date(dateString).toLocaleDateString('vi-VN', {
+    //         year: 'numeric',
+    //         month: 'short',
+    //         day: 'numeric'
+    //     });
+    // }, []);
 
     // =============================================
     // 🎨 RENDER FUNCTIONS

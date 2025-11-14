@@ -11,6 +11,7 @@ import type {
     DocumentLoadSuccess,
     ControlButton
 } from '../types';
+import { API_BASE_URL } from '../../constants';
 
 // =============================================
 // 📋 CẤU HÌNH PDF.js WORKER - QUAN TRỌNG
@@ -30,7 +31,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
  * Trong production, thay đổi thành URL của backend thật
  * Có thể chuyển thành environment variable để dễ quản lý
  */
-const API_BASE_URL: string = 'http://localhost:3001';
 
 // =============================================
 // 🎯 MAIN COMPONENT - PDF VIEWER VỚI MOCK API

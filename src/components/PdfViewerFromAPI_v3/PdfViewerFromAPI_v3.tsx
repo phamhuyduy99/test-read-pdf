@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import './PdfViewerOptimized.scss';
+import { API_BASE_URL } from '../../constants';
 
 // =============================================
 // 🎯 TYPES & CONFIG
@@ -29,7 +30,6 @@ interface DocumentType {
 
 // Cấu hình PDF worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-const API_BASE_URL = 'http://localhost:3001';
 
 // =============================================
 // 🎨 OPTIMIZED PDF VIEWER COMPONENT
@@ -206,13 +206,13 @@ const PdfViewerOptimized: React.FC<ProfessionalPdfViewerProps> = ({
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
-    const formatDate = (dateString: string): string => {
-        return new Date(dateString).toLocaleDateString('vi-VN', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    };
+    // const formatDate = (dateString: string): string => {
+    //     return new Date(dateString).toLocaleDateString('vi-VN', {
+    //         year: 'numeric',
+    //         month: 'short',
+    //         day: 'numeric'
+    //     });
+    // };
 
     // =============================================
     // 🎨 RENDER FUNCTIONS - OPTIMIZED
@@ -296,6 +296,7 @@ const PdfViewerOptimized: React.FC<ProfessionalPdfViewerProps> = ({
                     onLoadSuccess={onDocumentLoadSuccess}
                     onLoadError={(error: Error) => {
                         updateState({ error: 'Failed to load PDF content' });
+                        console.log(error);
                     }}
                     loading={
                         <div className="pdf-loading">
