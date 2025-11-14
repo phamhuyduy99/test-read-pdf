@@ -6,9 +6,18 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Debug paths
+const dbPath = join(__dirname, 'db.json');
+console.log('__dirname:', __dirname);
+console.log('Process cwd:', process.cwd());
+console.log('Database path:', dbPath);
+console.log('Database exists:', existsSync(dbPath));
+
+
 // Create server instance with proper typing
 const server = jsonServer.create();
-const router = jsonServer.router(join(__dirname, 'db.json'));
+const router = jsonServer.router(dbPath);
+
 const middlewares = jsonServer.defaults();
 
 // Use default middlewares
@@ -18,8 +27,21 @@ server.use(jsonServer.bodyParser);
 
 server.get('/api/v1/documents', (req, res) => {
 const db = router.db;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const documents = (db.get('documents') as any).value();
+
+    // Log toàn bộ database state
+    const dbState = db.getState();
+    console.log('📊 Full DB State:', JSON.stringify(dbState, null, 2));
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const documents = (db.get('documents') as any).value();
+    console.log('📄 Documents found:', documents);
+    console.log('📄 Number of documents:', documents.length);
+    
+    if (!documents || documents.length === 0) {
+      console.log('⚠️ No documents found in database');
+      return res.json([]);
+    }
+    
 res.json(documents);
 });
 
@@ -94,7 +116,5 @@ server.use(router);
 // Start server
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-  console.log(`🎯 JSON Server is running on http://localhost:${PORT}`);
-  console.log(`📚 PDF files available at: http://localhost:${PORT}/pdfs/`);
-  console.log(`📄 Documents API: http://localhost:${PORT}/documents`);
+  console.log(`🎯 JSON Server is running on port:${PORT}`);
 });
