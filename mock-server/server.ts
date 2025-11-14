@@ -15,6 +15,15 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
+
+server.get('/api/v1/documents', (req, res) => {
+const db = router.db;
+const documents = (db.get('documents') as any).value();
+res.json(documents);
+});
+
+
+
 // Custom route for serving PDF files
 server.get('/api/v1/pdfs/:filename', (req, res) => {
   const filename: string = req.params.filename;
