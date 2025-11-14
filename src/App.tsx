@@ -1,5 +1,4 @@
 import { Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Book from "./pages/Book";
 import BookV2 from "./pages/Book_v2";
@@ -22,7 +21,7 @@ function App() {
 
       <div className="p-6">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<BookV5 />} />
           <Route path="/book" element={<Book />} />
           <Route path="/book_v2" element={<BookV2 />} />
           <Route path="/book_v3" element={<BookV3 />} />
