@@ -21,15 +21,10 @@ import {
     FaSun,
     FaMoon,
     FaBars,
-    FaSave,
     FaFile,
     FaExclamationTriangle,
     FaSpinner,
     FaDatabase,
-    FaCalendar,
-    FaDownload,
-    FaTimes,
-    FaCog
 } from 'react-icons/fa';
 
 // =============================================
@@ -298,13 +293,13 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }, []);
 
-    const formatDate = useCallback((dateString: string): string => {
-        return new Date(dateString).toLocaleDateString('vi-VN', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    }, []);
+    // const formatDate = useCallback((dateString: string): string => {
+    //     return new Date(dateString).toLocaleDateString('vi-VN', {
+    //         year: 'numeric',
+    //         month: 'short',
+    //         day: 'numeric'
+    //     });
+    // }, []);
 
     // =============================================
     // 🎨 RENDER FUNCTIONS
