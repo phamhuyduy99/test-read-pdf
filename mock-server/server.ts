@@ -18,6 +18,7 @@ server.use(jsonServer.bodyParser);
 
 server.get('/api/v1/documents', (req, res) => {
 const db = router.db;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const documents = (db.get('documents') as any).value();
 res.json(documents);
 });
@@ -58,6 +59,7 @@ server.get('/api/v1/documents/:id/download', (req, res) => {
   const db = router.db;
   
   // Find document in database with proper typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const document = (db.get('documents') as any).find({ id: parseInt(documentId) }).value();
   
   if (!document) {

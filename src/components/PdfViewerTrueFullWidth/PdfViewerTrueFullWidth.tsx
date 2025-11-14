@@ -26,29 +26,19 @@ import {
     FaSpinner,
     FaDatabase,
 } from 'react-icons/fa';
+import type { DocumentTypeFile } from '../../types';
 
 // =============================================
 // 🎯 TYPES & INTERFACES
 // =============================================
 interface ProfessionalPdfViewerProps {
     initialDocumentId?: string;
-    onDocumentLoad?: (document: DocumentType) => void;
+    onDocumentLoad?: (document: DocumentTypeFile) => void;
     onPageChange?: (page: number) => void;
     theme?: 'light' | 'dark' | 'auto';
 }
 
-interface DocumentType {
-    id: string;
-    fileName: string;
-    fileSize: number;
-    pages: number;
-    uploadedAt: string;
-    author: string;
-    category: string;
-    description: string;
-    downloadCount: number;
-    filename: string;
-}
+
 
 interface ControlButton {
     type: string;
@@ -77,8 +67,8 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
     // =============================================
     const [state, setState] = useState({
         pdfUrl: null as string | null,
-        documents: [] as DocumentType[],
-        selectedDocument: null as DocumentType | null,
+        documents: [] as DocumentTypeFile[],
+        selectedDocument: null as DocumentTypeFile | null,
         numPages: null as number | null,
         pageNumber: 1,
         scale: 1.0,
@@ -124,7 +114,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const docs: DocumentType[] = await response.json();
+            const docs: DocumentTypeFile[] = await response.json();
             console.log('✅ Received documents:', docs.length);
 
             updateState({
@@ -149,7 +139,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
         }
     }, [initialDocumentId, updateState]);
 
-    const fetchPdf = useCallback(async (document: DocumentType): Promise<void> => {
+    const fetchPdf = useCallback(async (document: DocumentTypeFile): Promise<void> => {
         if (!document) return;
 
         updateState({
@@ -230,7 +220,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
         updateState({ numPages });
     }, [updateState]);
 
-    const handleDocumentSelect = useCallback((document: DocumentType): void => {
+    const handleDocumentSelect = useCallback((document: DocumentTypeFile): void => {
         console.log('👆 Document selected:', document.fileName);
         fetchPdf(document);
     }, [fetchPdf]);
@@ -273,7 +263,8 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
     }, [selectedDocument, fetchPdf]);
 
     const toggleSidebar = useCallback((): void => {
-        updateState({ sidebarCollapsed: !sidebarCollapsed });
+        return;
+        // updateState({ sidebarCollapsed: !sidebarCollapsed });
     }, [sidebarCollapsed, updateState]);
 
     const toggleTheme = useCallback((): void => {
@@ -293,18 +284,12 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }, []);
 
-    // const formatDate = useCallback((dateString: string): string => {
-    //     return new Date(dateString).toLocaleDateString('vi-VN', {
-    //         year: 'numeric',
-    //         month: 'short',
-    //         day: 'numeric'
-    //     });
-    // }, []);
+
 
     // =============================================
     // 🎨 RENDER FUNCTIONS
     // =============================================
-    const renderDocumentItem = useCallback((doc: DocumentType): JSX.Element => (
+    const renderDocumentItem = useCallback((doc: DocumentTypeFile): JSX.Element => (
         <div
             key={doc.id}
             className={`document-item ${selectedDocument?.id === doc.id ? 'selected' : ''}`}
@@ -501,7 +486,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
                         onClick={toggleSidebar}
                         title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                     >
-                        <FaBars size={18} className="icon menu" />
+                        <FaBars size={18} className="" />
                     </button>
                     <h1 className="app-title">PDF Professional Viewer</h1>
                 </div>
@@ -512,9 +497,9 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
                         title={`Switch to ${currentTheme === 'light' ? 'dark' : 'light'} theme`}
                     >
                         {currentTheme === 'light' ? (
-                            <FaMoon size={16} className="icon moon" />
+                            <FaMoon size={16} className="" />
                         ) : (
-                            <FaSun size={16} className="icon sun" />
+                            <FaSun size={16} className="" />
                         )}
                     </button>
                 </div>
@@ -535,7 +520,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
                             {listLoading ? (
                                 <FaSpinner size={16} className="icon loading spin" />
                             ) : (
-                                <FaUndo size={16} className="icon refresh" />
+                                <FaUndo size={16} className="" />
                             )}
                         </button>
                     </div>
@@ -543,7 +528,7 @@ const PdfViewerTrueFullWidth: React.FC<ProfessionalPdfViewerProps> = ({
                     {/* Search and Filter */}
                     <div className="sidebar-toolbar">
                         <div className="search-box">
-                            <FaSearch size={16} className="icon search" />
+                            <FaSearch size={16} className="absolute top-4 left-4" />
                             <input
                                 type="text"
                                 placeholder="Search documents..."

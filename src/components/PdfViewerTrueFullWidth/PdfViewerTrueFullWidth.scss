@@ -236,7 +236,7 @@
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-tertiary);
+      // color: var(--text-tertiary);
     }
     
     input {
@@ -844,63 +844,5 @@
   }
   to {
     transform: rotate(360deg);
-  }
-}
-
-// Icon sizes and colors
-.icon {
-  &.menu,
-  &.moon,
-  &.sun,
-  &.search,
-  &.refresh {
-    color: inherit;
-  }
-  
-  &.loading {
-    color: #3498db;
-  }
-}
-
-// Control button icons
-.control-btn {
-  .btn-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    svg {
-      color: currentColor;
-    }
-  }
-  
-  &:disabled .btn-icon svg {
-    opacity: 0.5;
-  }
-}
-
-// Document icons
-.document-item {
-  .file-type svg {
-    color: #e74c3c;
-  }
-  
-  .meta-item svg,
-  .document-footer svg {
-    margin-right: 4px;
-    opacity: 0.7;
-  }
-}
-
-// Theme support
-.theme-dark {
-  .icon svg {
-    color: #ecf0f1;
-  }
-}
-
-.theme-light {
-  .icon svg {
-    color: #2c3e50;
   }
 }
