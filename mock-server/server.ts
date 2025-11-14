@@ -81,7 +81,7 @@ server.get('/api/documents/:id/download', (req, res) => {
 server.use(router);
 
 // Start server
-const PORT: number = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`🎯 JSON Server is running on http://localhost:${PORT}`);
   console.log(`📚 PDF files available at: http://localhost:${PORT}/pdfs/`);
