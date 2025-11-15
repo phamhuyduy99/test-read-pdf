@@ -1,75 +1,167 @@
-# React + TypeScript + Vite
+# Test Read PDF
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Currently, two official plugins are available:
+Dự án: **Test Read PDF**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Branch hiện tại: `develop`
 
-## React Compiler
+## Link chạy trực tiếp
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+[Truy cập ứng dụng tại đây](https://test-read-pdf-client.onrender.com/)
 
-Note: This will impact Vite dev & build performances.
 
-## Expanding the ESLint configuration
+## Mục tiêu dự án
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Dự án này là một ví dụ đầy đủ để:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Sử dụng **React + TypeScript + Vite**.
+* Tích hợp khả năng **đọc và hiển thị file PDF**.
+* Hỗ trợ **upload PDF, hiển thị trang, điều hướng giữa các trang**.
+* Dễ dàng mở rộng, thêm tính năng xử lý PDF hoặc kết nối backend.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Cấu trúc thư mục
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+/test-read-pdf
+├── mock-server/          # Server giả lập (mock API)
+│   ├── pdfs/             # Chứa các file pdfs sample
+│   ├── db.json           # Chứa data để mock
+│   ├── server.ts         # Entry point server
+│   └── package.json      # Cấu hình project mock-server
+├── public/               # Tài nguyên tĩnh (favicon, hình ảnh, etc)
+├── src/                  # Mã nguồn React + TypeScript
+│   ├── components/       # Các component UI, ví dụ PdfViewerTrueFullWidth
+│   ├── pages/            # Các trang chính của app
+│   ├── constants/        # Chứa giá trị constant
+│   ├── types/            # Chứa type
+│   └── main.tsx          # Entry point React app
+├── .gitignore
+├── README.md
+├── package.json
+├── package-lock.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Chi tiết các thư mục chính
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* **/mock-server**: chứa server giả lập các API để thử upload hoặc đọc dữ liệu PDF.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  * **pdfs/**: Các file pdf sample để hiển thị được tải từ trên mạng.
+  * **db.json**: lưu trữ tạm thời dữ liệu để mock, dùng kết hợp với json-server.
+  * **server.ts**: entry point chạy server mock.
+  * **package.json**: quản lý các package dùng cho mock-server.
+
+* **/src/components**: component như `PdfViewerTrueFullWidth` sẽ giúp render PDF, chuyển trang, phóng to/thu nhỏ.
+
+* **/src/pages**: các trang chính, ví dụ trang upload PDF và trang xem PDF.
+
+* **/src/constants**: chứa giá trị constant.
+
+* **/src/types**: chứa type.
+
+
+* Các file TypeScript config (`tsconfig.*.json`) và ESLint (`eslint.config.js`) để đảm bảo code chuẩn và không lỗi type.
+
+## Yêu cầu trước khi chạy
+
+* Node.js >= 16
+* npm >= 8 hoặc yarn >= 1.22
+* Kết nối internet để tải các package phụ thuộc
+
+## Hướng dẫn chạy dự án
+
+### 1. Clone repo và chuyển branch `develop`
+
+```bash
+git clone https://github.com/phamhuyduy99/test-read-pdf.git
+cd test-read-pdf
+git checkout develop
 ```
+
+### 2. Cài đặt phụ thuộc
+
+```bash
+npm install
+```
+
+### 3. Chạy môi trường phát triển
+
+```bash
+npm run dev
+```
+
+* Mở trình duyệt vào địa chỉ mặc định: [http://localhost:5173](http://localhost:5173)
+* Hỗ trợ **HMR (Hot Module Replacement)** để tự động reload khi thay đổi code.
+
+### 4. Build cho production
+
+```bash
+npm run build
+```
+
+* Kết quả build sẽ nằm trong thư mục `dist/`
+* Có thể deploy lên Vercel, Netlify hoặc server tĩnh.
+
+### 5. Chạy mock-server
+
+Nếu muốn sử dụng API giả lập:
+
+```bash
+cd mock-server
+npm install
+npm run server
+```
+
+* Server sẽ chạy trên cổng được định nghĩa trong `mock-server/package.json`
+* Dùng để thử upload file PDF hoặc lấy dữ liệu mẫu.
+
+## Sử dụng PDF Viewer
+
+
+### Hiển thị PDF
+
+* Component `PdfViewerTrueFullWidth` sẽ nhận file PDF từ server mock.
+* Có thể **chuyển trang**, **phóng to/thu nhỏ**, **tìm kiếm file PDF**.
+* Các props chính:
+
+  * `initialDocumentId`: file PDF init
+  * `onDocumentLoad`: callback khi load file PDF
+  * `onPageChange`: callback khi đổi trang
+
+### Ví dụ component
+
+```tsx
+   <PdfViewerTrueFullWidth
+                initialDocumentId={"1"}
+                onDocumentLoad={handleDocumentLoad}
+                onPageChange={handlePageChange}
+            />
+```
+
+## Cấu hình TypeScript & ESLint
+
+* `tsconfig.app.json`: cho ứng dụng frontend
+* `tsconfig.node.json`: cho mock-server hoặc backend
+* `tsconfig.json`: cấu hình chung
+* `eslint.config.js`: kiểm tra code React + TypeScript, có thể mở rộng rule theo ý muốn
+
+## Gợi ý phát triển thêm
+
+* Thêm chức năng **tìm kiếm từ trong PDF**.
+* Hỗ trợ **chia sẻ link tới trang PDF cụ thể**.
+* Lazy-load các trang PDF để tăng hiệu năng.
+* Viết unit test / integration test với Jest + React Testing Library.
+* CI/CD pipeline để tự động build và test.
+
+## Đóng góp
+
+* Mọi góp ý hoặc cải thiện vui lòng mở Pull Request hoặc Issue trên GitHub.
+* Luôn dùng branch `develop` để phát triển các tính năng mới.
+
+---
+
+**Chúc bạn lập trình vui vẻ và phát triển thành công tính năng đọc PDF!**

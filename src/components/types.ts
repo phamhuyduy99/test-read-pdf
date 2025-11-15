@@ -34,7 +34,7 @@ export interface PdfWorker {
 // Extend Window interface for PDF.js worker
 declare global {
   interface Window {
-    pdfjsWorker: any;
+    pdfjsWorker: unknown;
   }
 }
 

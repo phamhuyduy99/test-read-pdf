@@ -6,7 +6,7 @@
     "server": "tsx server.ts",
     "server:watch": "tsx watch server.ts",
     "build": "tsc",
-        "start": "node dist/server.js"      
+    "start": "node dist/server.js"      
   },
   "dependencies": {
     "json-server": "^0.17.4"

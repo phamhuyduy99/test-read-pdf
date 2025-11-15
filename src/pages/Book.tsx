@@ -1,8 +1,9 @@
 import React from 'react';
-import PdfViewerWithMockAPI from '../components/PdfViewerFromAPI/PdfViewerFromAPI';
+import PdfViewerTrueFullWidth from '../components/PdfViewerTrueFullWidth/PdfViewerTrueFullWidth';
+import type { DocumentTypeFile } from '../types';
 
-const Book: React.FC = () => {
-    const handleDocumentLoad = (document: any) => {
+const BookV5: React.FC = () => {
+    const handleDocumentLoad = (document: DocumentTypeFile) => {
         console.log('Document loaded:', document.fileName);
     };
 
@@ -12,8 +13,8 @@ const Book: React.FC = () => {
 
     return (
         <div className="App">
-            <PdfViewerWithMockAPI
-                initialDocumentId={1}
+            <PdfViewerTrueFullWidth
+                initialDocumentId={"1"}
                 onDocumentLoad={handleDocumentLoad}
                 onPageChange={handlePageChange}
             />
@@ -21,4 +22,4 @@ const Book: React.FC = () => {
     );
 };
 
-export default Book;
+export default BookV5;
